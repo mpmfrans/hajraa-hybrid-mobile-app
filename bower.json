@@ -1,0 +1,13 @@
+{
+  "name": "hajraa-hybrid-mobile-app",
+  "homepage": "https://github.com/mpmfrans/hajraa-hybrid-mobile-app",
+  "authors": [
+    "mpmfrans <mpmfrans@gmail.com>"
+  ],
+  "description": "HajraaButo - A hybrid mobile tournament application.",
+  "main": "js/app.js",
+  "license": "MIT",
+  "dependencies": {
+    "ionic": "^1.3.1"
+  }
+}
