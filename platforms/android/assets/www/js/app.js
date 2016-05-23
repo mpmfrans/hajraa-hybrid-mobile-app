@@ -1,142 +1,85 @@
-angular.module('starter', ['ionic', 'ui.router'])
+// Ionic Starter App
 
-.run(function($ionicPlatform, $state, Day, $filter, $rootScope, Tournament, Participant) {
-    $ionicPlatform.ready(function() {
-        
-      
-    var _date = $filter('date')(new Date(), 'yyyy');
-        //console.log(_date);
-//    
-//    Day.getCurrentDay('2016-06-11').success(function(result_day){
-//        console.log(result_day);
-//        $rootScope.dateId = result_day[0].days_DayID;
-//    }).then(function(){
-//         var storage = window.localStorage;
-//
-//        var value = storage.getItem("preffered");
-//
-//        if(value == null){
-//            $state.go("app.matches");
-//        }else{
-//            $state.go("app.favorites");
-//        }
-//    });
-        
-  var storage = window.localStorage;
-  var value = storage.getItem("preffered");
-  
-  if(value == null){
-      
-      var tournamentID;
-      console.log(_date);
-      Tournament.getCurrentTournament(_date).success(function(result_tournament){
-        tournamentID = result_tournament[0].tournaments_TournamentID;
-      }).then(function(){
-         
-          Participant.getParticipantPerTournament(tournamentID).success(function(result_participants){
-             $rootScope.participants = result_participants;
-             $state.go("app.home"); 
-          });
-          
-      });
-      
-      
-  }else{
-      $state.go("app.favorites");
-  }
-        
-        
-        
-        
-        
-        
-        
-       
-    });
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+// 'starter.services' is found in services.js
+// 'starter.controllers' is found in controllers.js
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+
+    }
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+  });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
   $stateProvider
 
-    .state('app', {
-    url: '/app',
+  // setup an abstract state for the tabs directive
+    .state('tab', {
+    url: '/tab',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/tabs.html'
   })
 
-  .state('app.search', {
-    url: '/search',
+  // Each tab has its own nav history stack:
+
+  .state('tab.dash', {
+    url: '/dash',
     views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
+      'tab-dash': {
+        templateUrl: 'templates/tab-dash.html',
+        controller: 'DashCtrl'
       }
     }
   })
-  .state('app.browse', {
-      url: '/browse',
+
+  .state('tab.chats', {
+      url: '/chats',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
+        'tab-chats': {
+          templateUrl: 'templates/tab-chats.html',
+          controller: 'ChatsCtrl'
         }
       }
     })
-    .state('app.favorites', {
-        url: '/favorites',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/favorites.html',
-            controller: 'FavoritesCtrl'
-          }
-        }
-    }) 
-    .state('app.matches', {
-        url: '/matches',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/matches.html',
-            controller: 'MatchesCtrl'
-          }
-        }
-    })
-    .state('app.match', {
-        url: '/matches/:id',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/match.html',
-            controller: 'MatchCtrl'
-          }
-        }
-    })
-    .state('app.statistics', {
-      url: '/statistics',
+    .state('tab.chat-detail', {
+      url: '/chats/:chatId',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/statistics.html',
-          controller: 'StatisticsCtrl'
+        'tab-chats': {
+          templateUrl: 'templates/chat-detail.html',
+          controller: 'ChatDetailCtrl'
         }
       }
     })
-    .state('app.home', {
-      url: '/home',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/home.html',
-          controller: 'HomeCtrl'
-        }
+
+  .state('tab.account', {
+    url: '/account',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl'
       }
-    })
-    .state('app.settings', {
-      url: '/settings',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/settings.html',
-          controller: 'SettingsCtrl'
-        }
-      }
-    });
+    }
+  });
+
   // if none of the above states are matched, use this as the fallback
- // $urlRouterProvider.otherwise('/app/favorites');
+  $urlRouterProvider.otherwise('/tab/dash');
+
 });
-              
-              
