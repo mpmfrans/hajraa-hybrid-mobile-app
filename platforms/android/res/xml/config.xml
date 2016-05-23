@@ -82,11 +82,16 @@
     <splash density="port-xxxhdpi" src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
     <allow-intent href="market:*" />
     <name>HajraaButo</name>
-    <description>Hello World sample application that responds to the deviceready event.</description>
-    <author email="support@phonegap.com" href="http://phonegap.com">PhoneGap Team</author>
+    <description>HajraaButo - A hybrid mobile tournament application.</description>
+    <author email="thijs.fransen@alten.nl" href="www.alten.nl">Thijs Fransen</author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="FadeSplashScreen" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <splash src="splash.png" />
     <icon src="icon.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

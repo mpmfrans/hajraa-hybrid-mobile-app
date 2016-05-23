@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <!--
     Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
 -->
 <html>
 
@@ -39,10 +22,12 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>Hello World</title>
+    <link rel="stylesheet" type="text/css" href="bower_components/ionic/release/css/ionic.css" />
+    <title>Hajraa Hybrid Application</title>
 </head>
 
 <body>
+<!--
     <div class="app">
         <h1>PhoneGap</h1>
         <div id="deviceready" class="blink">
@@ -50,11 +35,50 @@
             <p class="event received">Device is Ready</p>
         </div>
     </div>
+-->
+    <body>
+        <ion-nav-view></ion-nav-view>
+    </body>
+    
+    <script type="text/javascript" src="bower_components/ionic/release/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<!--    <script type="text/javascript" src="bower_components/angular-touch/angular-touch.js"></script>-->
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    
+    <script type="text/javascript">
+//        function splash(time) {
+//            navigator.splashscreen.show();
+//                setTimeout(function() {
+//                navigator.splashscreen.hide();
+//            },time);
+//        }
+        
+        angular.element(document).ready(function () {
+            if (window.cordova) {
+                console.log("Running in Cordova, will bootstrap AngularJS once 'deviceready' event fires.");
+                document.addEventListener('deviceready', function () {
+//                     navigator.splashscreen.show();
+//                        setTimeout(function() {
+//                        navigator.splashscreen.hide();
+//                    }, 5000);
+                console.log("Deviceready event has fired, bootstrapping AngularJS.");
+                angular.bootstrap(document.body, ['starter']);
+            }, false);
+            } else {
+                console.log("Running in browser, bootstrapping AngularJS now.");
+                angular.bootstrap(document.body, ['starter']);
+            }
+        });
+    </script>
+<!--
     <script type="text/javascript">
         app.initialize();
     </script>
+-->
 </body>
 
 </html>
