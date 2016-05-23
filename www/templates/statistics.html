@@ -1,0 +1,37 @@
+<ion-view view-title="Statistics">
+    <ion-content>
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="load()">
+        </ion-refresher>
+         <div class="card" ng-show="dateId == null">
+           <div class="item item-text-wrap custom" >
+              Unfortunately, no tournament data is available at the moment.
+           </div>
+        </div>
+        <div ng-show="dateId != null">
+            <ion-list>
+                <div ng-repeat="level in levels">
+                    <ion-item class="item-stable custom"
+                        ng-click="toggleLevel(level)"
+                        ng-class="{active: isLevelShown(level)}">
+                        <i class="icon" ng-class="isLevelShown(level) ? 'ion-ios-minus-empty' : 'ion-ios-plus-empty'"></i>
+                        &nbsp;
+                        {{level.levels_LevelName}}
+                    </ion-item>
+
+                    <div ng-repeat="participant in level.statistics | orderBy:'groups_has_participants_TotalScore':true">
+                        <ion-item class="item-accordion custom"
+                            ng-show="isLevelShown(level)"
+                            ng-class="{active: isGroupShown(group)}">
+                            <i ng-class="isGroupShown(group)"></i>
+                            &nbsp;
+                            <div style="float: left;">{{$index + 1}}. {{participant.participants_TeamName}}</div>
+                            <div style="float: right;">{{participant.groups_has_participants_TotalScore}}</div>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-list>
+        </div>
+  </ion-content>
+</ion-view>
