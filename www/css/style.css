@@ -1,0 +1,49 @@
+/* Empty. Add your own CSS if you like */
+
+.bar.bar-profile {
+    background-color: #f8f8f8;
+    height: 170px;
+}
+
+.bar .profile {
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    padding-top: 15px;
+}
+
+.profile .name {
+    color: black;
+    margin-top: 2px !important;
+    margin-bottom: 10px !important;
+}
+
+.profile-picture {
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.menu .has-header
+{
+    top: 169px;
+}
+
+.custom
+{
+    font-size: 11px !important;
+}
+
+.highlight
+{
+    color: white !important;
+    background-color: #2e3091 !important;
+}
+
+

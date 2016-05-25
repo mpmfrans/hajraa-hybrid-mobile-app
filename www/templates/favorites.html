@@ -1,0 +1,52 @@
+<ion-view view-title="Favorites" cache-view="false">
+  <ion-content class="padding">
+      <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search" ng-model="query">
+        </label>
+      <div ng-if="!query">
+        <div class="card">
+            <div class="item item-divider custom highlight">
+                Your Team:
+            </div>
+             <ion-list>
+            <ion-item class="item item-text-wrap custom" 
+                 href="#/app/favorites/{{favorite.participants_ParticipantID}}">
+                {{preffered.participants_TeamName}} - {{preffered.participants_ClubName}} - {{preffered.participants_City}}
+            </ion-item>
+                        
+            </ion-list>
+        </div>
+      
+        <div class="card">
+            <div class="item item-divider custom highlight">
+                Favorites:
+            </div>
+            <ion-list>
+                
+            <div ng-repeat="favorite in favorites track by favorite.$$hashKey">
+                <ion-item class="item-light custom"
+                     href="#/app/favorites/{{favorite.participants_ParticipantID}}">
+                <div >
+                    {{favorite.participants_TeamName}} - {{favorite.participants_ClubName}} - {{favorite.participants_City}}
+                </div>
+                  </ion-item>
+            </div>
+                  
+            </ion-list>
+        </div>
+          </div>
+        
+       <div class="list list-inset" ng-if="query">
+        <ion-list>
+                <div ng-repeat="participant in participants | filter:query | limitTo: 10">
+                    <ion-item class="item-stable custom"
+                        ng-click="selected(participant)">
+                        {{participant.participants_TeamName}} - {{participant.participants_ClubName}} - {{participant.participants_City}}
+                    </ion-item>
+                </div>
+            </ion-list>
+        </div>
+      
+  </ion-content>
+</ion-view>

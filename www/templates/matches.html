@@ -1,0 +1,51 @@
+<ion-view view-title="Matches" cache-view="false">
+    <ion-content>
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="load()">
+        </ion-refresher>
+        <div class="card text-center" ng-show="dateId == null">
+           <div class="item item-text-wrap custom">
+              Unfortunately, no tournament data is available at the moment.
+           </div>
+        </div>
+        <div ng-show="dateId != null">
+            <ion-list>
+                <div ng-repeat="level in levels">
+                    <ion-item class="item-stable custom"
+                        ng-click="toggleLevel(level)"
+                        ng-class="{active: isLevelShown(level)}">
+                        <i class="icon" ng-class="isLevelShown(level) ? 'ion-ios-minus-empty' : 'ion-ios-plus-empty'"></i>
+                        &nbsp;
+                        {{level.levels_LevelName}}
+                    </ion-item>
+
+                    <div ng-repeat="group in level.groups | orderBy: 'groups_GroupName'">
+                        <ion-item class="item-stable custom"
+                            ng-show="isLevelShown(level)"
+                            ng-click="toggleGroup(group)"
+                            ng-class="{active: isGroupShown(group)}">
+                            <i ng-class="isGroupShown(group)"></i>
+                            {{group.groups_GroupName}}
+                        </ion-item>
+                        <div ng-repeat="match in group.matches">
+                            <ion-item class="item-light custom"
+                                ng-show="isGroupShown(group)"
+                                href="#/app/matches/{{match.matches_MatchID}}">
+                                <i ng-class="isParticipantShown(match)"></i>
+                                <div class="row">
+                                    <div class="col col-10 col-center">{{match.matches_MatchID}}-</div>
+                                    <div class="col">{{match.Participantone_TeamName}}<br>
+                                        {{match.Participanttwo_TeamName}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-offset-85">Score: 2-1</div>
+                                </div>
+                            </ion-item>
+                        </div>
+                    </div>
+                </div>
+            </ion-list>
+        </div>
+  </ion-content>
+</ion-view>
