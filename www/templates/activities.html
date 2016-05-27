@@ -8,15 +8,15 @@
                 <div ng-repeat="item in activities | orderBy:'activities_PostedOn':true">
                     <ion-item class="item-light custom">
                          <div class="row">
-                             <div class="col"><b>Title:</b> {{item.activities_Title}}</div>
-                             <div class="col col-offset-33"><b>Posted on:</b> {{item.activities_PostedOn | date:'yyyy-MM-dd HH:mm:ss'}}
+                             <div class="col col-5-"><b>Title:</b> {{item.activities_Title}}</div>
+                             <div class="col col-5-"><b>Posted on:</b> {{item.activities_PostedOn | date:'yyyy-MM-dd HH:mm:ss'}}
                                 </div>
                         </div>
                                 <div class="row">
-                                    <div class="col"><b>Starting Time:</b> {{item.activities_StartTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                    <div class="col col-5-"><b>Starting Time:</b> {{item.activities_StartTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
                                 </div>
                         <div class="row">
-                            <div class="col item-text-wrap">{{item.activities_Description}}</div>
+                            <div class="col col-50 item-text-wrap">{{item.activities_Description}}</div>
                         </div>
                     </ion-item>
            </div>
