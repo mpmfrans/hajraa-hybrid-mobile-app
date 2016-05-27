@@ -102,7 +102,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MatchCtrl', function($scope, $stateParams, Match){
-    $scope.load= function(){
+    $scope.load = function(){
     Match.getSpecificMatch($stateParams.id).success(function(result){
         //console.log(result);
         
@@ -119,7 +119,11 @@ angular.module('starter.controllers', [])
             }
            
        }
-    });
+    }).finally(function() {
+                
+                // Stop the ion-refresher from spinning
+                $scope.$broadcast('scroll.refreshComplete');
+            });
     }
     $scope.load();
 })
