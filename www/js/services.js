@@ -30,13 +30,27 @@ angular.module('starter.services', [])
     }
 })
 
+.factory('Review', function($http) {
+    return{
+        postNewReview : function(Grade, Comment){
+            return $http.post('https://buto-back-end.herokuapp.com/mobile/reviews',{
+                Grade : Grade,
+                Comment : Comment
+            });
+        }
+    }
+})
+
 .factory('Group', function($http) {
     return{
         getGroupPerLevelPerDay : function(fkLevelID, fkDayID){
             return $http.get('https://buto-back-end.herokuapp.com/mobile/group/level/' + fkLevelID + '/day/' + fkDayID);
         },
-        getGroupHasParticipantsPerLevel : function(fkLevelID, fkDayID ){
+        getGroupHasParticipantsPerLevel : function(fkLevelID, fkDayID){
             return $http.get('https://buto-back-end.herokuapp.com/mobile/level/' + fkLevelID + '/day/' + fkDayID);   
+        },
+        getGroupHasParticipantPerParticipantPerDay : function(fkParticipantID, fkDayID){
+            return $http.get('https://buto-back-end.herokuapp.com/mobile/group/participant/' + fkParticipantID + '/day/'+ fkDayID);
         }
     }
 })

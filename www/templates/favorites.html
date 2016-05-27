@@ -11,20 +11,20 @@
             </div>
              <ion-list>
             <ion-item class="item item-text-wrap custom" 
-                 href="#/app/favorites/{{favorite.participants_ParticipantID}}">
+                 href="#/app/favorites/{{preffered.participants_ParticipantID}}">
                 {{preffered.participants_TeamName}} - {{preffered.participants_ClubName}} - {{preffered.participants_City}}
             </ion-item>
                         
             </ion-list>
         </div>
       
-        <div class="card">
+        <div class="card" ng-if="favorites != null">
             <div class="item item-divider custom highlight">
                 Favorites:
             </div>
             <ion-list>
                 
-            <div ng-repeat="favorite in favorites track by favorite.$$hashKey">
+            <div ng-repeat="favorite in favorites | unique:'participants_ParticipantID'">
                 <ion-item class="item-light custom"
                      href="#/app/favorites/{{favorite.participants_ParticipantID}}">
                 <div >

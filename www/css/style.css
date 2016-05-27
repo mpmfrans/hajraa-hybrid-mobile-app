@@ -20,7 +20,7 @@
 
 .profile .name {
     color: black;
-    margin-top: 2px !important;
+    margin-top: 10px !important;
     margin-bottom: 10px !important;
 }
 
@@ -44,6 +44,20 @@
 {
     color: white !important;
     background-color: #2e3091 !important;
+}
+
+em,i{
+    font-style:italic !important;
+    color:darkgray;
+}
+
+.item.active.item-stable{
+    background-color: #2e3091 !important;
+    color: white !important;
+}
+
+.button .icon{
+    color: white;
 }
 
 

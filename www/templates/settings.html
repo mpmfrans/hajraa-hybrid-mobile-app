@@ -1,5 +1,17 @@
-<ion-view view-title="Settings">
+<ion-view view-title="Settings" cache-view="false">
     <ion-content class="padding" scroll="false">
+    <label class="item item-input item-select">
+        <div class="input-label custom" ng-if="disabled">
+            <i>Available when the tournament has ended</i>
+        </div>
+        <div class="input-label custom" ng-if="!disabled">
+             Which tournament day do you want to see?
+        </div>
+        <select class="custom" ng-model="selectedDay" ng-change="setDay(selectedDay)" ng-disabled="{{disabled}}">
+            <option class="custom" value="">-- Please select --</option>
+            <option class="custom" ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
+        </select>
+      </label>
        <button class="button button-block button-assertive" ng-click="reset()">Reset</button>
   </ion-content>
 </ion-view>

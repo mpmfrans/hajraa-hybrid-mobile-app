@@ -1,12 +1,7 @@
 <ion-view view-title="Welcome" cache-view="false">
     <ion-nav-buttons side="left"></ion-nav-buttons>
     <ion-content class="padding">
-         <div class="card text-center" ng-show="participants == null">
-            <div class="item item-text-wrap custom">
-              Unfortunately, no tournament data is available at the moment.
-           </div>
-        </div>
-        <div ng-show="participants != null">
+        <div ng-show="show">
          <label class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
             <input type="text" ng-model="query" placeholder="Which team are you on?">
@@ -22,5 +17,10 @@
             </ion-list>
         </div>
             </div>
+        <div class="card text-center" ng-hide="show">
+            <div class="item item-text-wrap custom">
+              Unfortunately, no tournament data is available at the moment.
+           </div>
+        </div>
     </ion-content>
 </ion-view>

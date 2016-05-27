@@ -7,10 +7,42 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform, $state, Day, $filter, $rootScope, Tournament, Participant) {
   $ionicPlatform.ready(function() {
+      
+      $ionicPlatform.registerBackButtonAction(function (event) {
+        console.log($state.current.name);
+        if($state.current.name=="app.favorites"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.matches"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.statistics"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.news"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.activities"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.settings"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.review"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.home"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        else {
+            navigator.app.backHistory();
+        }
+    }, 100);
       var _date_year = $filter('date')(new Date(), 'yyyy');
       var _date_full = $filter('date')(new Date(), 'yyyy-MM-dd');
 
       var storage = window.localStorage;
+      
       if(storage.getItem("preffered") != 'undefined'){
         var participant = JSON.parse(storage.getItem("preffered"));
       }
@@ -32,9 +64,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 if(result[0].tournaments_TournamentID != participant.participants_fkTournamentID){s
                     storage.removeItem("preffered");
                     $state.go("app.home");
+                }
             }
-            }
-            
               
           }else{
               storage.setItem("tournament", null);
@@ -47,13 +78,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     
     var tournament = JSON.parse(storage.getItem("tournament"));
     
-    var date = '2016-06-11';
+    var date = '2016-06-15';
     $rootScope.dateId = null;
 
     if(tournament != null){
-        if($filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd') < date){
-            $rootScope.dateId = storage.getItem("day");
-
+        if(date > $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd')){
+            if(storage.getItem("day") == null){
+                $rootScope.dateId = tournament.StartDate_DayID;
+            }
+            else{
+                var day = storage.getItem("day");
+                $rootScope.dateId = day;
+            }
+            
         }else{
              switch (date) {
                 case $filter('date')(tournament.StartDate_TournamentDate, 'yyyy-MM-dd'):
@@ -63,9 +100,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                      $rootScope.dateId = tournament.EndDate_DayID
                     break;
                 default:
+                     $rootScope.dateId = null;
 
             }
         }
+    }else{
+        $rootScope.dateId = null;
     }
       
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -92,15 +132,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
   })
   .state('app.map', {
       url: '/map',
@@ -202,4 +233,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });
   // if none of the above states are matched, use this as the fallback
  // $urlRouterProvider.otherwise('/app/favorites');
+})
+
+.filter('unique', function() {
+   return function(collection, keyname) {
+      var output = [], 
+          keys = [];
+
+      angular.forEach(collection, function(item) {
+          var key = item[keyname];
+          if(keys.indexOf(key) === -1) {
+              keys.push(key);
+              output.push(item);
+          }
+      });
+
+      return output;
+   };
 });

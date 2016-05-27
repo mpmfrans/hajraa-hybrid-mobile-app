@@ -1,29 +1,27 @@
-<ion-view view-title="Review">
+<ion-view view-title="Review" cache-view="false">
   <ion-content class="padding">
     <div class="card">
            <div class="item item-text-wrap custom">
               Please tell us how you feel about the tournament application. You can review the application by submitting a grade between 1 and 5. (1) poor, (2) fair, (3) good, (4) very good and (5)                       excellent. Add any comment, feedback or suggestion if you wish to.
            </div>
     </div>
-
-  <label class="item item-input item-select">
-    <div class="input-label custom">
-      Grade:
-    </div>
-    <select class="custom">
-      <option selected>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-  </label>
-
-      <label class="item item-input custom">
-        
-            <input type="text" placeholder="Comment" class="custom">
-        </label>
-
-<button class="button button-block button-balanced" ng-click="reset()">Submit</button>
+      <form ng-submit="postNewReview(review)">
+          <label class="item item-input item-select">
+              <i class="icon ion-university placeholder-icon"></i>
+            <select class="custom" ng-model="review.Grade">
+              <option selected>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </label>
+          
+          <label class="item item-input item-stacked-label">
+	           <span class="input-label" placeholder="Comment"><i class="icon ion-edit placeholder-icon"></i></span>
+               <textarea rows="8" cols="10" ng-model="review.Comment"></textarea>
+          </label>
+        <button class="button button-block button-balanced" ng-disabled="disabled" type="submit">Submit</button>
+      </form>
   </ion-content>
 </ion-view>
