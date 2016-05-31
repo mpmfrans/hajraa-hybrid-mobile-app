@@ -55,7 +55,7 @@ angular.module('starter.controllers', [])
                 });   
             }).then(function(){
                 
-                console.log(levels);
+                //console.log(levels);
                 $scope.levels = levels;
                 
             }).finally(function() {
@@ -245,9 +245,9 @@ angular.module('starter.controllers', [])
                 participant = result_group[0];
                 $scope.participant = participant;
                 if(participant != null ){
-                    $scope.message = false;
-                }else{
                     $scope.message = true;
+                }else{
+                    $scope.message = false;
                 }
                 groups = result_group;
             }).then(function(){
@@ -330,6 +330,10 @@ $scope.toggleGroup = function(group) {
     
     $scope.tournament = JSON.parse(storage.getItem("tournament"));
     
+    $scope.dateavailable = $filter('date')($scope.tournament.EndDate_TournamentDate, 'yyyy-MM-dd');
+    
+    console.log($scope.tournament);
+    
     var _date_full = $filter('date')(new Date(), 'yyyy-MM-dd');
     
     $scope.days = [];
@@ -404,9 +408,8 @@ $scope.toggleGroup = function(group) {
             
 .controller('ReviewCtrl', function($scope, Activity, $state, Review, $ionicPopup){
      var storage = window.localStorage;
-        var firstreview = storage.getItem("review");
+     var firstreview = storage.getItem("review");
 
-        
     if(firstreview != null){
         $scope.disabled = true;
     }
@@ -422,7 +425,7 @@ $scope.toggleGroup = function(group) {
 
                 confirmPopup.then(function(res) {
                     if(res) {
-                        $state.go("app.review");
+                        $state.go($state.current, {}, {reload: true});
                     } else {
                         console.log('Reset canceled !');
                 }
@@ -430,4 +433,11 @@ $scope.toggleGroup = function(group) {
             });
         }
     }
+})
+
+.controller('MapCtrl', function($ionicScrollDelegate, $scope){
+    var initZoom=0.3;
+    $scope.$on('$ionicView.enter',function(){
+      $ionicScrollDelegate.$getByHandle('setInitialZoom').zoomBy(initZoom);
+    }); 
 });

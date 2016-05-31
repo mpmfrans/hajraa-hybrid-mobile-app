@@ -48,11 +48,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
       
       Tournament.getCurrentTournament(_date_year).success(function(result){
-          if(result.length != 0){
+          if(result.length != 0){ 
               
             storage.setItem("tournament", JSON.stringify(result[0]));
             
             if(participant == null){
+                determineTournamentDateID();
                 $state.go("app.home");
             }
             
@@ -74,39 +75,43 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
       });
       
-    var storage = window.localStorage;
-    
-    var tournament = JSON.parse(storage.getItem("tournament"));
-    
-    var date = '2016-06-15';
-    $rootScope.dateId = null;
+    function determineTournamentDateID(){  
+        var storage = window.localStorage;
 
-    if(tournament != null){
-        if(date > $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd')){
-            if(storage.getItem("day") == null){
-                $rootScope.dateId = tournament.StartDate_DayID;
-            }
-            else{
-                var day = storage.getItem("day");
-                $rootScope.dateId = day;
-            }
-            
-        }else{
-             switch (date) {
-                case $filter('date')(tournament.StartDate_TournamentDate, 'yyyy-MM-dd'):
-                    $rootScope.dateId = tournament.StartDate_DayID
-                    break;
-                case $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd'):
-                     $rootScope.dateId = tournament.EndDate_DayID
-                    break;
-                default:
-                     $rootScope.dateId = null;
+        var tournament = JSON.parse(storage.getItem("tournament"));
 
-            }
-        }
-    }else{
+        var date = '2016-06-11';
         $rootScope.dateId = null;
+
+        if(tournament != null){
+            if(date > $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd')){
+                if(storage.getItem("day") == null){
+                    $rootScope.dateId = tournament.StartDate_DayID;
+                }
+                else{
+                    var day = storage.getItem("day");
+                    $rootScope.dateId = day;
+                }
+
+            }else{
+                 switch (date) {
+                    case $filter('date')(tournament.StartDate_TournamentDate, 'yyyy-MM-dd'):
+                        $rootScope.dateId = tournament.StartDate_DayID
+                        break;
+                    case $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd'):
+                         $rootScope.dateId = tournament.EndDate_DayID
+                        break;
+                    default:
+                         $rootScope.dateId = null;
+
+                }
+            }
+        }else{
+            $rootScope.dateId = null;
+        }
     }
+    
+    determineTournamentDateID();
       
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -122,6 +127,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
   });
+  
+  
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -137,7 +144,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/map',
       views: {
         'menuContent': {
-          templateUrl: 'templates/map.html'
+          templateUrl: 'templates/map.html',
+          controller: 'MapCtrl'
         }
       }
     })

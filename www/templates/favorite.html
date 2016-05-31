@@ -4,12 +4,12 @@
             pulling-text="Pull to refresh..."
             on-refresh="load()">
         </ion-refresher>
-      <div class="card text-center" ng-show="message">
+      <div class="card text-center" ng-hide="message">
            <div class="item item-text-wrap custom">
               One moment please. This participant is not in a group.
            </div>
         </div>
-      <div ng-show="!message">
+      <div ng-show="message">
       <div class="card">
             <div class="item item-divider custom highlight">
                 {{participant.participants_TeamName}}
