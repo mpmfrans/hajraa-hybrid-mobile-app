@@ -34,7 +34,13 @@
                 <div class="col col-50"><b>Score:</b></div>
                 <div class="col col-50">{{match.matches_ParticipantOneScore}} - {{match.matches_ParticipantTwoScore}} </div>
             </div>
-            <div class="row" ng-if="winner != null">
+            <div ng-repeat="set in sets">
+                <div class="row" ng-if="winner != null">
+                    <div class="col col-50"><b>Set {{$index + 1}}</b></div>
+                    <div class="col col-50">{{set.sets_ParticipantOneScore}} - {{set.sets_ParticipantTwoScore}} </div>
+                </div>
+           </div>
+           <div class="row" ng-if="winner != null">
                 <div class="col col-50"><b>Winner:</b></div>
                 <div class="col col-50"> {{winner}} </div>
             </div>

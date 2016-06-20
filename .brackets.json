@@ -1,5 +1,6 @@
 {
     "jscodehints.detectedExclusions": [
-        "C:/Users/Thijs Fransen/Documents/Sourcetree/hajraa-hybrid-mobile-app/platforms/android/assets/www/lib/ionic/js/angular-ui/angular-ui-router.min.js"
+        "C:/Users/Thijs Fransen/Documents/Sourcetree/hajraa-hybrid-mobile-app/platforms/android/assets/www/lib/ionic/js/angular-ui/angular-ui-router.min.js",
+        "C:/Users/Thijs Fransen/Documents/Sourcetree/hajraa-hybrid-mobile-app/platforms/android/cordova/lib/builders/AntBuilder.js"
     ]
 }

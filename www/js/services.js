@@ -10,6 +10,9 @@ angular.module('starter.services', [])
         },
         getSpecificMatch : function(MatchID) {
             return $http.get('https://buto-back-end.herokuapp.com/mobile/matches/' + MatchID);
+        },
+        getMatchSets : function(MatchID) {
+            return $http.get('https://buto-back-end.herokuapp.com/mobile/matches/' + MatchID + '/sets');
         }
     };
 })

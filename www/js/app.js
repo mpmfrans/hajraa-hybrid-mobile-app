@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform, $state, Day, $filter, $rootScope, Tournament, Participant) {
+.run(function($ionicPlatform, $state, Day, $filter, $rootScope, Tournament, Participant, Level) {
   $ionicPlatform.ready(function() {
       
       $ionicPlatform.registerBackButtonAction(function (event) {
@@ -20,6 +20,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             navigator.app.exitApp(); //<-- remove this line to disable the exit
         }
         if($state.current.name=="app.news"){
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        }
+        if($state.current.name=="app.map"){
             navigator.app.exitApp(); //<-- remove this line to disable the exit
         }
         if($state.current.name=="app.activities"){
@@ -39,7 +42,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
     }, 100);
       var _date_year = $filter('date')(new Date(), 'yyyy');
-      var _date_full = $filter('date')(new Date(), 'yyyy-MM-dd');
+      
 
       var storage = window.localStorage;
       
@@ -79,12 +82,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         var storage = window.localStorage;
 
         var tournament = JSON.parse(storage.getItem("tournament"));
-
-        var date = '2016-06-11';
+//        var _date_full = '2016-06-11';
+        var _date_full = $filter('date')(new Date(), 'yyyy-MM-dd');
         $rootScope.dateId = null;
 
         if(tournament != null){
-            if(date > $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd')){
+            if(_date_full > $filter('date')(tournament.EndDate_TournamentDate, 'yyyy-MM-dd')){
                 if(storage.getItem("day") == null){
                     $rootScope.dateId = tournament.StartDate_DayID;
                 }
@@ -94,7 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 }
 
             }else{
-                 switch (date) {
+                 switch (_date_full) {
                     case $filter('date')(tournament.StartDate_TournamentDate, 'yyyy-MM-dd'):
                         $rootScope.dateId = tournament.StartDate_DayID
                         break;

@@ -55,7 +55,7 @@ angular.module('starter.controllers', [])
                 });   
             }).then(function(){
                 
-                //console.log(levels);
+                console.log(levels);
                 $scope.levels = levels;
                 
             }).finally(function() {
@@ -104,9 +104,9 @@ angular.module('starter.controllers', [])
 .controller('MatchCtrl', function($scope, $stateParams, Match){
     $scope.load = function(){
     Match.getSpecificMatch($stateParams.id).success(function(result){
-        //console.log(result);
-        
-       $scope.match = result[0];
+        $scope.match = result[0];
+        console.log(result);
+      
        if(result[0].matches_isPlayed == true){
            if(result[0].matches_ParticipantOneScore > result[0].matches_ParticipantTwoScore){
                 $scope.winner = result[0].Participantone_TeamName; 
@@ -119,8 +119,11 @@ angular.module('starter.controllers', [])
             }
            
        }
+       Match.getMatchSets($stateParams.id).success(function(result){
+            $scope.sets = result;
+           console.log(result);
+        });
     }).finally(function() {
-                
                 // Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
@@ -231,12 +234,20 @@ angular.module('starter.controllers', [])
             disableBack: true,
         });
         
+        $state.go($state.current, {}, {reload: true});  
+    }
+    
+    $scope.onHold = function(index){
+        var storage = window.localStorage;
+        var a = JSON.parse(storage.getItem('favorites'));
+        a.splice(index, 1);
+        storage.setItem('favorites', JSON.stringify(a));
         $state.go($state.current, {}, {reload: true});
-        
     }
 })
 
 .controller('FavoriteCtrl', function($scope, Activity, $stateParams, $state, Group, $rootScope, Match, $ionicHistory){
+    $scope.message = true;
     $scope.load = function(){
     var participant = null;    
             var groups = [];
@@ -372,6 +383,7 @@ $scope.toggleGroup = function(group) {
 })
 
 .controller('NewsCtrl', function($scope, News, $state){
+    $scope.message = true;
     var storage = window.localStorage;
     var tournament = JSON.parse(storage.getItem("tournament")); 
     
@@ -379,6 +391,11 @@ $scope.toggleGroup = function(group) {
     
         News.getNewsPosts(tournament.tournaments_TournamentID).success(function(news){
             $scope.news = news;
+             if($scope.news.length != 0 ){
+                    $scope.message = true;
+              }else{
+                    $scope.message = false;
+              }
         }).finally(function() {
 
                 // Stop the ion-refresher from spinning
@@ -390,12 +407,18 @@ $scope.toggleGroup = function(group) {
 })
 
 .controller('ActivitiesCtrl', function($scope, Activity, $state){
+    $scope.message = true;
     var storage = window.localStorage;
     var tournament = JSON.parse(storage.getItem("tournament")); 
     
     $scope.load = function(){
         Activity.getActivities(tournament.tournaments_TournamentID).success(function(activities){
             $scope.activities = activities;
+              if($scope.activities.length != 0 ){
+                    $scope.message = true;
+              }else{
+                    $scope.message = false;
+              }
         }).finally(function() {
 
                 // Stop the ion-refresher from spinning

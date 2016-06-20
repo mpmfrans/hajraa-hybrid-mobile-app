@@ -4,7 +4,12 @@
             pulling-text="Pull to refresh..."
             on-refresh="load()">
         </ion-refresher>
-       <ion-list>
+        <div class="card text-center" ng-hide="message">
+           <div class="item item-text-wrap custom">
+              One moment please. No news to show at the moment.
+           </div>
+        </div>
+       <ion-list ng-show="message">
                 <div ng-repeat="item in news | orderBy:'news_PostedOn':true">
                     <ion-item class="item-light custom">
                          <div class="row">

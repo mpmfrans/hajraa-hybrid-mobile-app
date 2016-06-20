@@ -33,22 +33,23 @@
       
       <ion-list>
           <div ng-repeat="group in groups">
-            <ion-item class="item-stable custom"
+            <ion-item class="item item-divider custom highlight"
                         ng-click="toggleGroup(group)"
                         ng-class="{active: isGroupShown(group)}">
                         <i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-minus-empty' : 'ion-ios-plus-empty'"></i>
                         &nbsp;
-                        {{group.levels_LevelName}}
+                        Matches
             </ion-item>
                         <ion-item ng-repeat="match in group.matches"
-                            class="item-accordion custom"
+                            class="item item-divider custom highlight"
                             ng-show="isGroupShown(group)"
                             ng-click="viewMatch()"
                             href="#/app/matches/{{match.matches_MatchID}}">
-                             <div class="row">
-                                    <div class="col"><b>ID:</b> {{match.matches_MatchID}}</div>
-                                    <div class="col col-75 item-text-wrap"><b>Match:</b> {{match.Participantone_TeamName}} - {{match.Participanttwo_TeamName}}
+                                <div class="row">
+                                    <div class="col item-text-wrap"><b>Match:</b> {{match.Participantone_TeamName}} - {{match.Participanttwo_TeamName}}  </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col"><b>Referee:</b> {{match.Referee_TeamName}}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col"><b>Field:</b> {{match.groups_FieldNumber}}</div>

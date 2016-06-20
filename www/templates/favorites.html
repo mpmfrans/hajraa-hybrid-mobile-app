@@ -18,16 +18,16 @@
             </ion-list>
         </div>
       
-        <div class="card" ng-if="favorites != null">
+        <div class="card" ng-if="favorites != null && favorites.length > 0">
             <div class="item item-divider custom highlight">
                 Favorites:
             </div>
             <ion-list>
                 
             <div ng-repeat="favorite in favorites | unique:'participants_ParticipantID'">
-                <ion-item class="item-light custom"
+                <ion-item class="item-light custom" on-hold="onHold($index)"
                      href="#/app/favorites/{{favorite.participants_ParticipantID}}">
-                <div >
+                <div>
                     {{favorite.participants_TeamName}} - {{favorite.participants_ClubName}} - {{favorite.participants_City}}
                 </div>
                   </ion-item>
